@@ -1,21 +1,15 @@
 const fs = require('fs');
 
+ try {
+     fs.readdirSync('./test', 'utf8').forEach(file => {
+        console.log(file);
+    })
+  } catch (err) {
+    console.error('No such directory:' + err);
+  }
+
+/*
 const testDirectory = './test';
-
-fs.readdirSync(testDirectory).forEach(file => {
+const testDirectory = fs.readdirSync('./test').forEach(file => {
    console.log(file);
- });
-
- 
- 
-
-//const dir = fs.readdirSync('./', 'utf-8');
-//console.log(dir);
-
-/*fs.readdirSync('./', 'utf8', (err, dir)=> {
-    if(err)
-    console.log(err);
-    else
-    console.log(dir);
-});
-*/
+ });*/
