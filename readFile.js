@@ -1,12 +1,18 @@
-const path = require('path');
 const fs = require('fs');
 
-const file = fs.readFileSync('./pathDir.js', 'utf-8');
-console.log(file);
+const testFile = './pathFile.js';
 
-/*fs.readFileSync('pathDir.js', 'utf8'(err, file)=> {
-    if(err)
-    console.log('Unable to read file' + err);
-    else
-    console.log(file);
-});*/
+fs.readFileSync(testFile).forEach(file => {
+        console.log(file);
+ });
+
+
+ /*if (err.code === 'ENOENT') {
+    console.log('File not found!');
+  } else {
+    throw err;
+  }*/
+
+//const file = fs.readFileSync('./pathDir.js', 'utf-8');
+//console.log(file);
+//{encoding:"utf8"}
