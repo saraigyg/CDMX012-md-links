@@ -1,9 +1,9 @@
 const fs = require('fs');
-// const markdownLinkExtractor = require('markdown-link-extractor');
 
 
  try {
-     fs.readdirSync('./test', 'utf8').forEach(file => {
+     const readDir = fs.readdirSync('./test', 'utf8');
+     readDir.forEach(file => {
         console.log(file);
     })
   } catch (err) {
