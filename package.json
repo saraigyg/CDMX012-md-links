@@ -26,5 +26,8 @@
   "devDependencies": {
     "markdown-link-check": "^3.10.0",
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "markdown-link-extractor": "^2.0.1"
   }
 }
