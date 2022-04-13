@@ -13,10 +13,10 @@ const mdLinks = (path, options) => {
 
   const userPathRoot = pathRoot(path);
   if (userPathRoot) {
-    console.log('the path is absolute' + path);
+    console.log('the path is absolute');
   }
   else {
-    console.log('the path is now absolute' + path);
+    console.log('the path is now absolute: ', path.resolve(userPathRoot));
   }
   
   const userFileIs = pathAFile(path);
