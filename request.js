@@ -7,7 +7,7 @@ const https = require('https');
     port: 443,
     path: '/todos',
     method: 'GET'
-  }*/
+  }
   
   const req = https.request(respon => {
     console.log(`href: ${respon.url}`);
@@ -26,12 +26,12 @@ const https = require('https');
     console.log(`message: fail`);
   })
   
-  req.end()
+  req.end()*/
 
   /*************************  OPTION TWO READ ME******************************/
-const mdLinks = require("md-links");
+const mdLinks = require("mdLinks");
 
-mdLinks("./some/example.md")
+mdLinks("./read/README.md")
   .then(links => {
     console.log(`href: ${links.url}`);
     console.log(`text: ${links.links}`);
