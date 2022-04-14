@@ -1,6 +1,11 @@
 const fs = require('fs'); 
 const path = require('path');
 
+/**
+ * funcion que recibe un path y regresa un booleano
+ * si es que el path existe o no 
+ */
+
  const pathExist = (userPath) => {
    if(fs.existsSync(userPath)) {
       return true;
@@ -9,6 +14,11 @@ const path = require('path');
       return false; 
    }
 }
+
+/**
+ * funcion que recibe un path y regresa un booleano
+ * si es que el path existe como absoluto o no 
+ */
 
 const pathRoot = (userRoot) => {
    if(path.isAbsolute(userRoot)) {
@@ -19,27 +29,53 @@ const pathRoot = (userRoot) => {
    }
 }
 
-const readFile = (userFile) => {
-   fs.readFileSync(userFile);
-   if(fs.lstatSync(userFile).isFile()) {
-      if (path.extname(userFile) == ".md") {
-         console.log(userFile)
-      }}
-   };
+/**
+ * funcion que recibe un archivo y regresa un booleano
+ * si es que el archivo es archivo o no
+ */
 
-const readFolder = (userFolder) => {
-   fs.readdirSync(userFolder, {withFileTypes: true}).forEach(file => {
-      let fullPath = path.join(userFolder, file);
+const isItFile = (entryFile) => {
+   if (fs.lstatSync(entryFile).isFile()) {
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+/**
+ * funcion que recibe un archivo y regresa un booleano
+ * si es que el archivo tiene extension md 
+ */
+const isItMd = (entryMd) => {
+   if (path.extname(entryMd) == ".md" || path.extname(entryMd) == ".markdown") {
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+/**
+ * funcion que recibe un path y regresa un arreglo
+ * con todos los paths de archivos encontrados 
+ */
+const readFolder = (entryPath) => {
+   const results = [];
+   fs.readdirSync(entryPath).forEach(file => {
+      const fullPath = path.join(entryPath, file);
       if (fs.lstatSync(fullPath).isDirectory()) {
-         console.log(fullPath);
-         readFolder(fullPath);
-       } else {
-         console.log(fullPath);
-       }  
+         results.concat(readFolder(fullPath));
+      }
+      else {
+         results.push(fullPath);
+      }
     });
-  }
+    return results;
+}
 
 module.exports.pathExist = pathExist;
 module.exports.pathRoot = pathRoot;
-module.exports.readFile = readFile;
+module.exports.isItFile = isItFile;
+module.exports.isItMd = isItMd;
 module.exports.readFolder = readFolder;
