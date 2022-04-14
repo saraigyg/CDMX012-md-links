@@ -22,7 +22,8 @@ const extractLinks = async (url) => {
       links.push({
         text: $(element).text(), // get the text
         href: $(element).attr('href'), // get the href attribute
-      });
+        file: $(element).attr('path'),
+        });
     });
 
     console.log(links);
@@ -33,5 +34,7 @@ const extractLinks = async (url) => {
 };
 
 // Try it
-const URL = 'http://books.toscrape.com/';
+const URL = 'https://es.wikipedia.org/wiki/Markdown';
 extractLinks(URL);
+
+module.exports.extractLinks = extractLinks;
