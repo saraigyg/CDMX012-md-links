@@ -1,6 +1,11 @@
 const fs = require('fs'); 
 const path = require('path');
 
+/**
+ * funcion que recibe un path y regresa un booleano
+ * si es que el path existe o no 
+ */
+
  const pathExist = (userPath) => {
    if(fs.existsSync(userPath)) {
       return true;
@@ -10,26 +15,27 @@ const path = require('path');
    }
 }
 
+/**
+ * funcion que recibe un path y regresa un booleano
+ * si es que el path existe como absoluto o no 
+ */
+
 const pathRoot = (userRoot) => {
    if(path.isAbsolute(userRoot)) {
       return true;
    }
    else {
-      return path.resolve(userRoot);
+      return false;
    }
 }
 
-/*const pathAbsolute = (userPathAbs) => {
-   if (path.resolve(userPathAbs)) {
-      return '';
-   }
-   else {
-      return null;
-   }
-}*/
+/**
+ * funcion que recibe un archivo y regresa un booleano
+ * si es que el archivo es archivo o no
+ */
 
-const pathAFile = (userFile) => {
-   if (fs.lstatSync(userFile).isFile) {
+const isItFile = (entryFile) => {
+   if (fs.lstatSync(entryFile).isFile()) {
       return true;
    }
    else {
@@ -37,8 +43,12 @@ const pathAFile = (userFile) => {
    }
 }
 
-const pathADirectory = (userDirectory) => {
-   if (fs.lstatSync(userDirectory).isDirectory) {
+/**
+ * funcion que recibe un archivo y regresa un booleano
+ * si es que el archivo tiene extension md 
+ */
+const isItMd = (entryMd) => {
+   if (path.extname(entryMd) == ".md" || path.extname(entryMd) == ".markdown") {
       return true;
    }
    else {
@@ -46,46 +56,39 @@ const pathADirectory = (userDirectory) => {
    }
 }
 
-const readFile = (userReadFile) => {
-   if (fs.readFileSync(userReadFile)) {
-      return {};
-   }
-   else {
-      return null;
-   }
-}
-
-const readFolder = (userReadFolder) => {
-   fs.readdirSync(userReadFolder).forEach(file => {
-      let fullPath = path.join(userReadFolder, file);
+/**
+ * funcion que recibe un path y regresa un arreglo
+ * con todos los paths de archivos encontrados 
+ */
+const readFolder = (entryPath) => {
+   const results = [];
+   fs.readdirSync(entryPath).forEach(file => {
+      const fullPath = path.join(entryPath, file);
       if (fs.lstatSync(fullPath).isDirectory()) {
-         console.log(fullPath);
-         readFolder(fullPath);
-       } else {
-         console.log(fullPath);
-       }  
+         results.concat(readFolder(fullPath));
+      }
+      else {
+         results.push(fullPath);
+      }
     });
-  }
+    return results;
+}
+
+const searchLinks = (entryBuffer) => {
+   const linkResults = [];
+   
+}
 
 module.exports.pathExist = pathExist;
 module.exports.pathRoot = pathRoot;
-/*module.exports.pathAbsolute = pathAbsolute;*/
-module.exports.pathAFile = pathAFile;
-module.exports.pathADirectory = pathADirectory;
-module.exports.readFile = readFile;
+module.exports.isItFile = isItFile;
+module.exports.isItMd = isItMd;
 module.exports.readFolder = readFolder;
 
-/*
-      
-         const readFile = fs.readFileSync(__filename);
-         if (path.extname(readFile) === '.md' || path.extname(readFile) === '.markdown') {
-            console.log(readFile);
-         }
-         else {
-            console.log('');
-         }
-      }
-         const readDir = fs.readdirSync(__dirname);
-         readDir.forEach(file => {
-             console.log((`File name: ${file} | Extension type: ${path.extname(file)}`));
-*/
+/*const urlExistSync = require("url-exist-sync");
+
+urlExistSync("https://google.com");
+//=> true
+
+urlExistSync("https://google.com/404ingURL");
+//=> false*/
