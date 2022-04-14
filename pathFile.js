@@ -74,8 +74,21 @@ const readFolder = (entryPath) => {
     return results;
 }
 
+const searchLinks = (entryBuffer) => {
+   const linkResults = [];
+   
+}
+
 module.exports.pathExist = pathExist;
 module.exports.pathRoot = pathRoot;
 module.exports.isItFile = isItFile;
 module.exports.isItMd = isItMd;
 module.exports.readFolder = readFolder;
+
+/*const urlExistSync = require("url-exist-sync");
+
+urlExistSync("https://google.com");
+//=> true
+
+urlExistSync("https://google.com/404ingURL");
+//=> false*/
