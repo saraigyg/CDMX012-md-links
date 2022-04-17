@@ -74,21 +74,43 @@ const readFolder = (entryPath) => {
     return results;
 }
 
-const searchLinks = (entryBuffer) => {
+/**
+ * funcion que recibe un file y regresa 
+ * un arreglo de objetos con los links encontrados
+ *
+ */
+
+const searchLinks = (entryPathFile) => {
    const linkResults = [];
-   
+   const readLines = fs.readFileSync(entryPathFile, {encoding: 'utf-8'}) .split('\n').filter(Boolean);
+   // console.log(readLines);
+   readLines.forEach(url => {
+      const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+      if ( url.match(expression)) {
+         const linkObject = {};
+         const text = url.substring(
+            url.indexOf("[") + 1, 
+            url.lastIndexOf("]")
+        );
+        const href = url.substring(
+           url.indexOf('(') + 1,
+           url.lastIndexOf(')')
+        );
+        linkObject['href'] = href;
+        linkObject['text'] = text;
+        linkObject['file'] = entryPathFile;
+        linkResults.push(linkObject);
+        // console.log(linkObject);
+      }
+   });
 }
+
+
+
 
 module.exports.pathExist = pathExist;
 module.exports.pathRoot = pathRoot;
 module.exports.isItFile = isItFile;
 module.exports.isItMd = isItMd;
 module.exports.readFolder = readFolder;
-
-/*const urlExistSync = require("url-exist-sync");
-
-urlExistSync("https://google.com");
-//=> true
-
-urlExistSync("https://google.com/404ingURL");
-//=> false*/
+module.exports.searchLinks = searchLinks;

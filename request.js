@@ -1,61 +1,16 @@
-const https = require('https');
+const axios = require('axios');
 
-/***********************OPTION ONE HTTPS.REQUEST********************** */
 
-/*const options = {
-    hostname: 'example.com',
-    port: 443,
-    path: '/todos',
-    method: 'GET'
+  const validateLinks = (links) => {
+    axios
+  .get('https://example.com/todos')
+  .then(res => {
+    console.log(`statusCode: ${res.status}`)
+   // console.log(res)
+  })
+  .catch(error => {
+    console.error(error)
+  })
   }
-  
-  const req = https.request(respon => {
-    console.log(`href: ${respon.url}`);
-    console.log(`text: ${respon.links}`);
-    console.log(`file: ${respon.path}`);
-    console.log(`statusCode: ${respon.statusCode}`);
-    console.log(`message: ok`);
-  
-    respon.on('data', d => {
-      process.stdout.write(d)
-    })
-  })
-  
-  req.on('error', error => {
-    console.error(error);
-    console.log(`message: fail`);
-  })
-  
-  req.end()*/
 
-  /*************************  OPTION TWO READ ME******************************/
-const mdLinks = require("mdLinks");
-
-mdLinks("./read/README.md")
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    // => [{ href, text, file }, ...]
-  })
-  .catch(console.error);
-
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    console.log(`statusCode: ${links.statusCode}`);
-    console.log(`message: ok`);
-    // => [{ href, text, file, status, ok }, ...]
-  })
-  .catch(console.error, `message: fail`);
-
-mdLinks("./some/dir")
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    // => [{ href, text, file }, ...]
-  })
-  .catch(console.error);
+  module.exports.validateLinks = validateLinks;

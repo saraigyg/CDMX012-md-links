@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const { argv } = require('process');
-const { pathExist, pathRoot, isItFile, isItMd, readFolder } = require ('./pathFile.js'); 
-
+const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('./pathFile.js'); 
+const { validateLinks } = require('./request.js');
 
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
@@ -27,6 +27,11 @@ const mdLinks = (path, options) => {
    const isMd = isItMd(path);
    if (isMd) {
      console.log('this file has md extension');
+     const findLinks = searchLinks(path);
+    validateLinks(findLinks);
+   }
+   else {
+     console.log('this file has not md extension');
    }
  }
  else {
