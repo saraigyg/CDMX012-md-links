@@ -1,5 +1,6 @@
 const fs = require('fs'); 
 const path = require('path');
+// const { validateLinks } = require('./request.js');
 
 /**
  * funcion que recibe un path y regresa un booleano
@@ -77,23 +78,25 @@ const readFolder = (entryPath) => {
 /**
  * funcion que recibe un file y regresa 
  * un arreglo de objetos con los links encontrados
+ * con formato href, text y file
  *
  */
 
 const searchLinks = (entryPathFile) => {
    const linkResults = [];
-   const readLines = fs.readFileSync(entryPathFile, {encoding: 'utf-8'}) .split('\n').filter(Boolean);
+   const readLines = fs.readFileSync(entryPathFile, {encoding: 'utf-8'}).split('\n').filter(Boolean);
    // console.log(readLines);
    readLines.forEach(url => {
       const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-      if ( url.match(expression)) {
+      if (url.match(expression)) {
+         //si es vacio no lo regrese
          const linkObject = {};
          const text = url.substring(
             url.indexOf("[") + 1, 
             url.lastIndexOf("]")
         );
         const href = url.substring(
-           url.indexOf('(') + 1,
+           url.indexOf(']') + 2,
            url.lastIndexOf(')')
         );
         linkObject['href'] = href;
@@ -103,6 +106,7 @@ const searchLinks = (entryPathFile) => {
         // console.log(linkObject);
       }
    });
+   return linkResults;
 }
 
 

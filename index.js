@@ -1,7 +1,8 @@
 const { resolve } = require('path');
 const { argv } = require('process');
 const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('./pathFile.js'); 
-const { validateLinks } = require('./request.js');
+const { getStatus } = require('./request.js');
+const { totalLinks, countUniqueLinks } = require('./options.js');
 
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
@@ -11,7 +12,6 @@ const mdLinks = (path, options) => {
   else {
     console.log('the path does not exist');
   }
-
   const isPathAbs = pathRoot(path);
   if (isPathAbs) {
     console.log('the path is absolute');
@@ -20,7 +20,6 @@ const mdLinks = (path, options) => {
     path = resolve(path);
     console.log('the path is now absolute: ' + path); 
   }
-  
   const isFile = isItFile(path);
  if (isFile) {
    console.log('this is a file');
@@ -28,7 +27,19 @@ const mdLinks = (path, options) => {
    if (isMd) {
      console.log('this file has md extension');
      const findLinks = searchLinks(path);
-    validateLinks(findLinks);
+     if (options.includes('--validate')) {
+       // const findLinksMap = findLinks.map(getStatus);
+   // console.log(findLinksMap);
+   // una promesa que recibe un arreglo de promesas y devuelve una promesa que 
+   // devuelve un arreglo con todas las promesas resueltas
+      const findLinksValidated = Promise.all(findLinks.map(getStatus));
+      findLinksValidated.then(res => {console.log(res)});
+   // console.log(findLinksValidated);
+    }
+    if (options.includes('--stats')) {
+      totalLinks(path);
+      countUniqueLinks(path);
+    }
    }
    else {
      console.log('this file has not md extension');
@@ -42,8 +53,9 @@ const mdLinks = (path, options) => {
 
 const main = (args) => {
   const userPath = args[2].toString();
-  console.log(args);
-  mdLinks(userPath);
+  const userOptions = args.slice(3);
+  console.log(args, userOptions);
+  mdLinks(userPath, userOptions);
 };
 
 main(argv);
