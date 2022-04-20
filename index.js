@@ -7,22 +7,22 @@ const { totalLinks, countUniqueLinks } = require('./options.js');
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
   if (userPathExist) {
-    console.log('the path exists');
+    console.log('this path exists');
   }
   else {
-    console.log('the path DOES NOT exist');
+    console.log('this path DOES NOT exist, please try another one');
   }
   const isPathAbs = pathRoot(path);
   if (isPathAbs) {
-    console.log('the path is absolute');
+    console.log('this path is absolute');
   }
   else {
     path = resolve(path);
-    console.log('the path is now absolute: ' + path); 
+    console.log('this path is now absolute: ' + path); 
   }
   const isFile = isItFile(path);
  if (isFile) {
-   console.log('this is a file');
+   console.log('this path concerns to a file');
    const isMd = isItMd(path);
    if (isMd) {
      console.log('this file has md extension');
@@ -48,15 +48,19 @@ const mdLinks = (path, options) => {
       totalLinks(findLinks);
       countUniqueLinks(findLinks);
      }
+     if (!options.includes('--validate') || !options.includes('--stats')) {
+       console.log('Please choose one of the follow options: --validate , --stats , --validate --stats')
+     }
     return Promise.resolve(findLinks);
    }
    else {
-     console.log('this file HAS NOT md extension');
+     console.log('this file HAS NOT md extension, md files only please ');
    }
  }
  else {
    const allFiles = readFolder(path);
    console.log(allFiles);
+   allFiles.map((e) => {mdLinks(e, options)});
  }
 };
 
