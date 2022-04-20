@@ -18,6 +18,7 @@ const axios = require('axios');
          return linkObject;
       }
     }).catch (error => {
+      linkObject['statusCode'] = 'NA';
       linkObject['ok'] = 'fail';
       return linkObject;
     });
@@ -32,8 +33,8 @@ const axios = require('axios');
           return false;
         }
       });
-      console.log(`Broken: ${ new Set(brokenLinksArray.size)}`);
-      return new Set(brokenLinksArray.size);
+      console.log(`Broken: ${ new Set(brokenLinksArray).size}`);
+      return new Set(brokenLinksArray).size;
   }
      
 

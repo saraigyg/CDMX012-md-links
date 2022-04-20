@@ -10,7 +10,7 @@ const mdLinks = (path, options) => {
     console.log('the path exists');
   }
   else {
-    console.log('the path does not exist');
+    console.log('the path DOES NOT exist');
   }
   const isPathAbs = pathRoot(path);
   if (isPathAbs) {
@@ -38,18 +38,20 @@ const mdLinks = (path, options) => {
  
       const findLinksValidated = Promise.all(findLinks.map(getStatus));
       findLinksValidated.then(res => {console.log(res)});
-   // console.log(findLinksValidated);
+      // console.log(findLinksValidated);
+      if (options.includes('--stats')) {
+        findLinksValidated.then(res => {brokenLinks(res)});
+      }
+      return findLinksValidated;
     }
-    if (options.includes('--stats')) {
+     if (options.includes('--stats')) {
       totalLinks(findLinks);
       countUniqueLinks(findLinks);
-    }
-    if (options.includes('--validate' && '--stats')) {
-    brokenLinks(findLinks);
-    }
+     }
+    return Promise.resolve(findLinks);
    }
    else {
-     console.log('this file has not md extension');
+     console.log('this file HAS NOT md extension');
    }
  }
  else {
