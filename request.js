@@ -13,33 +13,29 @@ const axios = require('axios');
      // console.log(resq.status);
       return linkObject;
       }
+      else {
+         linkObject['ok'] = 'fail';
+         return linkObject;
+      }
     }).catch (error => {
       linkObject['ok'] = 'fail';
       return linkObject;
     });
   }
+
+  const brokenLinks = (arrayLinks) => { 
+      let brokenLinksArray = arrayLinks.filter((elLink) => {
+        if(elLink.statusCode !== 200) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      console.log(`Broken: ${ new Set(brokenLinksArray.size)}`);
+      return new Set(brokenLinksArray.size);
+  }
      
-      
- /*  const getStatus = async(linkObject) => { 
-    if (linkObject === null || linkObject === undefined) {
-       return {};
-     }
-    if (linkObject.href === null || linkObject.href === undefined) {
-      return linkObject;
-    }
-    try {
-      const req = await axios.get(linkObject.href);
-      linkObject['statusCode'] = req.status;
-      if (req.status === 200) {
-      linkObject['ok'] = req.statusText;
-     // console.log(resq.status);
-      return linkObject;
-      }
-    }
-    catch (error) {
-      linkObject['ok'] = 'fail';
-      return linkObject;
-    }
-   }*/
 
   module.exports.getStatus = getStatus;
+  module.exports.brokenLinks = brokenLinks;

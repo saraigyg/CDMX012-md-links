@@ -86,8 +86,8 @@ const searchLinks = (entryPathFile) => {
    const linkResults = [];
    const readLines = fs.readFileSync(entryPathFile, {encoding: 'utf-8'}).split('\n').filter(Boolean);
    // console.log(readLines);
+   const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
    readLines.forEach(url => {
-      const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
       if (url.match(expression)) {
          //si es vacio no lo regrese
          const linkObject = {};
@@ -105,8 +105,10 @@ const searchLinks = (entryPathFile) => {
         linkResults.push(linkObject);
         // console.log(linkObject);
       }
+
    });
-   return linkResults;
+   return linkResults.filter((eObject) => {
+      return eObject.href.match(expression)});
 }
 
 

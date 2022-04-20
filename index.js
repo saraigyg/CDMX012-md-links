@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const { argv } = require('process');
 const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('./pathFile.js'); 
-const { getStatus } = require('./request.js');
+const { getStatus, brokenLinks } = require('./request.js');
 const { totalLinks, countUniqueLinks } = require('./options.js');
 
 const mdLinks = (path, options) => {
@@ -28,17 +28,24 @@ const mdLinks = (path, options) => {
      console.log('this file has md extension');
      const findLinks = searchLinks(path);
      if (options.includes('--validate')) {
-       // const findLinksMap = findLinks.map(getStatus);
-   // console.log(findLinksMap);
-   // una promesa que recibe un arreglo de promesas y devuelve una promesa que 
-   // devuelve un arreglo con todas las promesas resueltas
+      /**
+       * const findLinksMap = findLinks.map(getStatus);
+       * console.log(findLinksMap);
+       * una promesa que recibe un arreglo de promesas 
+       *y devuelve una promesa que devuelve un arreglo con 
+       *todas las promesas resueltas
+       */ 
+ 
       const findLinksValidated = Promise.all(findLinks.map(getStatus));
       findLinksValidated.then(res => {console.log(res)});
    // console.log(findLinksValidated);
     }
     if (options.includes('--stats')) {
-      totalLinks(path);
-      countUniqueLinks(path);
+      totalLinks(findLinks);
+      countUniqueLinks(findLinks);
+    }
+    if (options.includes('--validate' && '--stats')) {
+    brokenLinks(findLinks);
     }
    }
    else {

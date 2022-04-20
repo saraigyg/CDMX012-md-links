@@ -1,11 +1,10 @@
-const fs = require('fs');
-
 /**
- * this function receive a md file and 
- * returns the total number of links inside it 
+ * this function receive an array of links from a 
+ * md file and returns the total number 
+ * of links inside it 
  */
 const totalLinks = (fileWithLinks) => {
-  console.log('hola');
+  console.log(`Total: ${fileWithLinks.length}`);
     return fileWithLinks.length;
 }
 
@@ -14,17 +13,13 @@ const totalLinks = (fileWithLinks) => {
  * this function receive the total of links and
  * returns the total number of unique links inside a md file
  */
-const countUniqueLinks = (arrayLinks) => {
-  console.log(new Set(arrayLinks).size);
-  return new Set(arrayLinks).size
+const countUniqueLinks = (arrayLinksObject) => {
+  let result = arrayLinksObject.map(a => a.href);
+  console.log(`Unique: ${new Set(result).size}`);
+  return new Set(result).size;
 }
 
-/*
-  let counts = {};
-  for (let i = 0; i < arrayLinks.length; i++) {
-      counts[arrayLinks[i]] = 1 + (counts[arrayLinks[i]] || 0);
-  }
-  return counts; */
+
 
 module.exports.totalLinks = totalLinks;
 module.exports.countUniqueLinks = countUniqueLinks;
