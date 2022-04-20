@@ -1,61 +1,41 @@
-const https = require('https');
+const axios = require('axios');
 
-/***********************OPTION ONE HTTPS.REQUEST********************** */
-
-/*const options = {
-    hostname: 'example.com',
-    port: 443,
-    path: '/todos',
-    method: 'GET'
+  /**
+   * funcion que recibe un objeto link 
+   * y si el codigo status en validate es true
+   * devuelve el objeto link añadiendo status 
+   */
+  const getStatus = (linkObject) => {
+    return axios.get(linkObject.href).then((resp) => {
+      linkObject['statusCode'] = resp.status;
+      if (resp.status === 200) {
+        linkObject['ok'] = resp.statusText;
+     // console.log(resq.status);
+      return linkObject;
+      }
+      else {
+         linkObject['ok'] = 'fail';
+         return linkObject;
+      }
+    }).catch (error => {
+      linkObject['ok'] = 'fail';
+      return linkObject;
+    });
   }
-  
-  const req = https.request(respon => {
-    console.log(`href: ${respon.url}`);
-    console.log(`text: ${respon.links}`);
-    console.log(`file: ${respon.path}`);
-    console.log(`statusCode: ${respon.statusCode}`);
-    console.log(`message: ok`);
-  
-    respon.on('data', d => {
-      process.stdout.write(d)
-    })
-  })
-  
-  req.on('error', error => {
-    console.error(error);
-    console.log(`message: fail`);
-  })
-  
-  req.end()*/
 
-  /*************************  OPTION TWO READ ME******************************/
-const mdLinks = require("mdLinks");
+  const brokenLinks = (arrayLinks) => { 
+      let brokenLinksArray = arrayLinks.filter((elLink) => {
+        if(elLink.statusCode !== 200) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+      console.log(`Broken: ${ new Set(brokenLinksArray.size)}`);
+      return new Set(brokenLinksArray.size);
+  }
+     
 
-mdLinks("./read/README.md")
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    // => [{ href, text, file }, ...]
-  })
-  .catch(console.error);
-
-mdLinks("./some/example.md", { validate: true })
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    console.log(`statusCode: ${links.statusCode}`);
-    console.log(`message: ok`);
-    // => [{ href, text, file, status, ok }, ...]
-  })
-  .catch(console.error, `message: fail`);
-
-mdLinks("./some/dir")
-  .then(links => {
-    console.log(`href: ${links.url}`);
-    console.log(`text: ${links.links}`);
-    console.log(`file: ${links.path}`);
-    // => [{ href, text, file }, ...]
-  })
-  .catch(console.error);
+  module.exports.getStatus = getStatus;
+  module.exports.brokenLinks = brokenLinks;
