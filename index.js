@@ -40,7 +40,7 @@ const mdLinks = (path, options) => {
       findLinksValidated.then(res => {console.log(res)});
       // console.log(findLinksValidated);
       if (options.includes('--stats')) {
-        findLinksValidated.then(res => {brokenLinks(res)});
+        findLinksValidated.then(res => {totalLinks(res), countUniqueLinks(res), brokenLinks(res)});
       }
       return findLinksValidated;
     }
