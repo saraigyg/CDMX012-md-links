@@ -70,7 +70,6 @@ const readFolder = (entryPath) => {
       }
       else {
          results.push(fullPath);
-         
       }
     });
     return results;
