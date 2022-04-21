@@ -12,6 +12,7 @@ const mdLinks = (path, options) => {
   else {
     console.log('this path DOES NOT exist, please try another one');
   }
+
   const isPathAbs = pathRoot(path);
   if (isPathAbs) {
     console.log('this path is absolute');
@@ -20,37 +21,27 @@ const mdLinks = (path, options) => {
     path = resolve(path);
     console.log('this path is now absolute: ' + path); 
   }
+
   const isFile = isItFile(path);
  if (isFile) {
    console.log('this path concerns to a file');
+
    const isMd = isItMd(path);
    if (isMd) {
      console.log('this file has md extension');
+
      const findLinks = searchLinks(path);
      if (options.validate) {
       /**
-       * const findLinksMap = findLinks.map(getStatus);
-       * console.log(findLinksMap);
        * una promesa que recibe un arreglo de promesas 
        *y devuelve una promesa que devuelve un arreglo con 
        *todas las promesas resueltas
        */ 
- 
       const findLinksValidated = Promise.all(findLinks.map(getStatus));
-      //findLinksValidated.then(res => {console.log(res)});
-      // console.log(findLinksValidated);
-     // if (options.includes('--stats')) {
-     //   findLinksValidated.then(res => {totalLinks(res), countUniqueLinks(res), brokenLinks(res)});
-     // }
-      return findLinksValidated;
+      const promiseLinksValidated = findLinksValidated.then((resau) => {console.log(resau.flat()); return resau.flat()});
+      return promiseLinksValidated;
     }
-    // if (options.includes('--stats')) {
-    //  totalLinks(findLinks);
-    //  countUniqueLinks(findLinks);
-    // }
-    // if (!options.includes('--validate') || !options.includes('--stats')) {
-    //   console.log('Please choose one of the follow options: --validate , --stats , --validate --stats')
-    // }
+    console.log(findLinks);
     return Promise.resolve(findLinks);
    }
    else {
@@ -78,13 +69,22 @@ const main = (args) => {
   const userOptions = {};
   userOptions.validate = args.slice(3).includes('--validate');
   userOptions.stats = args.slice(3).includes('--stats');
+  userOptions.combination = userOptions.stats && userOptions.validate;
   console.log(args, userOptions);
-  const project = mdLinks(userPath, userOptions);
-  project.then()
-  /**
-   * project es una promesa, resolverla, imprimirla y mandar a llamar stats con una promesa
-   */
 
+  const project = mdLinks(userPath, userOptions);
+  project.then((rest) => { 
+    if (userOptions.combination) {
+     return totalLinks(rest), countUniqueLinks(rest), brokenLinks(rest);
+    }
+    else if (userOptions.stats) {
+      return totalLinks(rest), countUniqueLinks(rest);
+    }
+    else {
+      console.log('Please choose one of the following options: --validate , --stats or --validate --stats');
+    }
+  }) .catch (error => {
+  });
 };
 
 main(argv);
