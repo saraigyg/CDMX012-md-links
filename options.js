@@ -1,8 +1,3 @@
-// recibir un objeto con validate que regrese un booleano
-//en vez de includes cambio options.validate
-//quitar stats de mdLinks y en guardar stats en otra funcion las 2 funciones de total y unique y en otra la de broken
-//
-
 /**
  * this function receive an array of links from a 
  * md file and returns the total number 

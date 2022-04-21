@@ -62,11 +62,11 @@ const isItMd = (entryMd) => {
  * con todos los paths de archivos encontrados 
  */
 const readFolder = (entryPath) => {
-   const results = [];
+   let results = [];
    fs.readdirSync(entryPath).forEach(file => {
       const fullPath = path.join(entryPath, file);
       if (fs.lstatSync(fullPath).isDirectory()) {
-         results.concat(readFolder(fullPath));
+         results = results.concat(readFolder(fullPath));  
       }
       else {
          results.push(fullPath);
