@@ -1,6 +1,6 @@
 const fs = require('fs'); 
 const path = require('path');
-// const { validateLinks } = require('./request.js');
+
 
 /**
  * funcion que recibe un path y regresa un booleano
