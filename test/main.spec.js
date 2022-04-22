@@ -1,14 +1,3 @@
-const mdLinks = require('../index.js');
-
-
-describe('mdLinks', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
-
-});
-
 const { main } = require('../index.js');
 
 let path1 = 'C:\Users\sarai\Documents\Scanned Documents\Documents\Laboratoria\CDMX012-md-links\doc.md';
