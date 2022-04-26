@@ -1,9 +1,19 @@
+#! /usr/bin/env node
+console.log("Hello World!");
+const yargs = require("yargs");
 const chalk = require('chalk');
 const { resolve } = require('path');
 const { argv } = require('process');
-const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('./pathFile.js'); 
-const { getStatus, brokenLinks } = require('./request.js');
-const { totalLinks, countUniqueLinks } = require('./options.js');
+const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('../pathFile.js'); 
+const { getStatus, brokenLinks } = require('../request.js');
+const { totalLinks, countUniqueLinks } = require('../options.js');
+
+const usage = "\nUsage: tran <lang_name> sentence to be translated";const options = yargs  
+      .usage(usage)  
+      .option("l", {alias:"languages", describe: "List all supported languages.", type: "boolean", demandOption
+: false })                                                                                                    
+      .help(true)  
+      .argv;
 
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
