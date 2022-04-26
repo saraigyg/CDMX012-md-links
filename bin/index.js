@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-console.log("Hello World!");
+//console.log("Hello World!");
 const yargs = require("yargs");
 const chalk = require('chalk');
 const { resolve } = require('path');
@@ -8,13 +8,19 @@ const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = requi
 const { getStatus, brokenLinks } = require('../request.js');
 const { totalLinks, countUniqueLinks } = require('../options.js');
 
-const usage = "\nUsage: tran <lang_name> sentence to be translated";const options = yargs  
+const usage = "\nUsage: md-links <sarai gyg>/md-links>";
+const options = yargs
       .usage(usage)  
-      .option("l", {alias:"languages", describe: "List all supported languages.", type: "boolean", demandOption
-: false })                                                                                                    
-      .help(true)  
+      .option("validate", { describe: "validate links with http request", demandOption: false })
+      .option("stats", { describe: "return total and unique links", demandOption: false })
+      .option("validate --stats", { describe: "validate links and return total, unique and broken links", demandOption: false })                                                                                                    
+      .help(true)
+      .showHelpOnFail(true, 'Specify --help for available options')
+      .epilogue('Laboratoria CDMX-012 - saraigyg') 
       .argv;
+//console.log(options);
 
+      // funcion mdLinks
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
   if (userPathExist) {
