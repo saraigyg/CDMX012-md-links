@@ -23,14 +23,16 @@ librería o paquetería en Javascript.
 
 Se creó un diagrama de flujo donde se juntan los procesos a seguir en la API y en el CLI para
 cumplir con el objetivo del proyecto. Adicionalmente, en distinto formato, se inserta una post 
-note donde se describen igualmente los pasos pensando en el/la usuaria.  
+note donde se describen igualmente los pasos pensando en el/la usuaria.
+![alt text](/readMeAssets/diagFlujo1.png)
+![alt text](/readMeAssets/diagFlujo4.png)
 
 ## 3. Objetivos de aprendizaje
 
-JavaScript
-Node.js
-Control de Versiones (Git y GitHub)
-HTTP
+JavaScript &nbsp;/&nbsp;
+Node.js &nbsp;/&nbsp;
+Control de Versiones (Git y GitHub) &nbsp;/&nbsp;
+HTTP &nbsp;/&nbsp;
 Jest
 
 ## 4. Descripción del módulo
