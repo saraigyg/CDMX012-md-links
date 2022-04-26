@@ -3,7 +3,7 @@ const Node = new JSDOM('').window.Node;
 const { searchLinks } = require('../pathFile.js');
 
 
-//jest.mock('fs');
+//jest.mock('fs')
 
 describe('searchLinks function receives a path and returns a boolean', () => {
     test('that if a pathFile has a mdfile with links is true', () => {

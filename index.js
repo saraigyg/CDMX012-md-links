@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const { resolve } = require('path');
 const { argv } = require('process');
 const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = require ('./pathFile.js'); 
@@ -7,28 +8,28 @@ const { totalLinks, countUniqueLinks } = require('./options.js');
 const mdLinks = (path, options) => {
   const userPathExist = pathExist(path);
   if (userPathExist) {
-    console.log('this path exists');
+    console.log(chalk.blue('this path exists'));
   }
   else {
-    console.log('this path DOES NOT exist, please try another one');
+    console.log(chalk.red.bold('this path DOES NOT exist, please try another one'));
   }
 
   const isPathAbs = pathRoot(path);
   if (isPathAbs) {
-    console.log('this path is absolute');
+    console.log(chalk.blue('this path is absolute'));
   }
   else {
     path = resolve(path);
-    console.log('this path is now absolute: ' + path); 
+    console.log(chalk.magenta('this path is now absolute: ' + path)); 
   }
 
   const isFile = isItFile(path);
  if (isFile) {
-   console.log('this path concerns to a file');
+   console.log(chalk.blue('this path concerns to a file'));
 
    const isMd = isItMd(path);
    if (isMd) {
-     console.log('this file has md extension');
+     console.log(chalk.blue('this file has md extension'));
 
      const findLinks = searchLinks(path);
      if (options.validate) {
@@ -45,7 +46,7 @@ const mdLinks = (path, options) => {
     return Promise.resolve(findLinks);
    }
    else {
-     console.log('this file HAS NOT md extension, md files only please ');
+     console.log(chalk.red.bold('this file HAS NOT md extension, md files only please '));
    }
  }
  else {
@@ -81,9 +82,10 @@ const main = (args) => {
       return totalLinks(rest), countUniqueLinks(rest);
     }
     else {
-      console.log('Please choose one of the following options: --validate , --stats or --validate --stats');
+      console.log(chalk.yellow.bold('Please choose one of the following options: --validate , --stats or --validate --stats'));
     }
   }) .catch (error => {
+    console.log(chalk.red.bold(error));
   });
 };
 
