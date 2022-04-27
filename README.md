@@ -41,7 +41,7 @@ Jest
 ## 4. Descripción del módulo
 
 ### Instalación
-
+![alt text](/readMeAssets/npmi.png)
 ### Documentación del API
 
 ### Ejemplos
