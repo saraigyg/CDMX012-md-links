@@ -7,6 +7,9 @@
   "engines": {
     "node": ">=14.x"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Tool to extract links, validate and get stats from them given an md file",
   "main": "bin/index.js",
   "directories": {
@@ -27,7 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/saraigyg/CDMX012-md-links.git"
   },
-  "author": "Sarai Gonzalez y Gonzalez",
+  "author": "Sarai Gonzalez y Gonzalez (https://github.com/saraigyg)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/saraigyg/CDMX012-md-links/issues"

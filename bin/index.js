@@ -1,5 +1,6 @@
 #! /usr/bin/env node
-//console.log("Hello World!");
+
+// requerimientos para correr mdLinks y main functions
 const yargs = require("yargs");
 const chalk = require('chalk');
 const { resolve } = require('path');
@@ -8,7 +9,8 @@ const { pathExist, pathRoot, isItFile, isItMd, readFolder, searchLinks } = requi
 const { getStatus, brokenLinks } = require('../request.js');
 const { totalLinks, countUniqueLinks } = require('../options.js');
 
-const usage = "\nUsage: md-links <sarai gyg>/md-links>";
+// para la ventana de help 
+const usage = "\nUsage: md-links <sarai gyg>/md-links>\n";
 const options = yargs
       .usage(usage)  
       .option("validate", { describe: "validate links with http request", demandOption: false })
@@ -18,7 +20,6 @@ const options = yargs
       .showHelpOnFail(true, 'Specify --help for available options')
       .epilogue('Laboratoria CDMX-012 - saraigyg') 
       .argv;
-//console.log(options);
 
       // funcion mdLinks
 const mdLinks = (path, options) => {
@@ -81,6 +82,10 @@ const mdLinks = (path, options) => {
  }
 };
 
+/**
+ * funcion main para que el usuario interaccione con el cli 
+ * y además se lean los stats 
+ * */ 
 const main = (args) => {
   const userPath = args[2].toString();
   const userOptions = {};
@@ -88,7 +93,7 @@ const main = (args) => {
   userOptions.stats = args.slice(3).includes('--stats');
   userOptions.combination = userOptions.stats && userOptions.validate;
   console.log(args, userOptions);
-
+// los stats y la combinacion de stats y validate, llamando la funcion mdLinks
   const project = mdLinks(userPath, userOptions);
   project.then((rest) => { 
     if (userOptions.combination) {
@@ -98,12 +103,13 @@ const main = (args) => {
       return totalLinks(rest), countUniqueLinks(rest);
     }
     else {
-      console.log(chalk.yellow.bold('Please choose one of the following options: --validate , --stats or --validate --stats'));
+      console.log(chalk.yellow.bold('Please write --help after your path given to see the further options'));
     }
   }) .catch (error => {
     console.log(chalk.red.bold(error));
   });
 };
 
+//invocando la funcion main 
 main(argv);
 module.exports.mdLinks = mdLinks;
