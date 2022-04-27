@@ -103,7 +103,7 @@ const main = (args) => {
       return totalLinks(rest), countUniqueLinks(rest);
     }
     else {
-      console.log(chalk.yellow.bold('Please write --help after your path given to see the further options'));
+      console.log(chalk.yellow.bold('Please write --help after your path given to see further options'));
     }
   }) .catch (error => {
     console.log(chalk.red.bold(error));
