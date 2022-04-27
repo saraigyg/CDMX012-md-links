@@ -24,6 +24,9 @@ librería o paquetería en Javascript.
 Se creó un diagrama de flujo donde se juntan los procesos a seguir en la API y en el CLI para
 cumplir con el objetivo del proyecto. Adicionalmente, en distinto formato, se inserta una post 
 note donde se describen igualmente los pasos pensando en el/la usuaria.
+
+
+
 ![alt text](/readMeAssets/diagFlujo1.png)
 ![alt text](/readMeAssets/diagFlujo4.png)
 
