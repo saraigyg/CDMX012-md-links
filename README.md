@@ -32,10 +32,14 @@ note donde se describen igualmente los pasos pensando en el/la usuaria.
 
 ## 3. Objetivos de aprendizaje
 
-JavaScript &nbsp;/&nbsp;
-Node.js &nbsp;/&nbsp;
-Control de Versiones (Git y GitHub) &nbsp;/&nbsp;
-HTTP &nbsp;/&nbsp;
+JavaScript  
+
+Node.js  
+
+Control de Versiones (Git y GitHub)  
+
+HTTP  
+
 Jest
 
 ## 4. Descripción del módulo
@@ -43,8 +47,23 @@ Jest
 ### Instalación
 ![alt text](/readMeAssets/npmi.png)
 ### Documentación del API
+**mdLinks(path, {options})**  
 
-### Ejemplos
+**Parámetros**  
+
+**path:** el nombre del path del archivo en formato markdown donde se encuentran los links o directorio que contiene archivos markdown en string ej. './pathTo'  
+
+**options:** las opciones válidas puestas al lado del path que devuelven un booleano (true/false) son las siguientes:  
+
+*--validate* para validar los links imprimiendo en consola el statusCode del HTTP request más un mensaje de 'ok' si el link tiene un statusCode de '200' o 'fail' si el link tiene un statusCode diferente a '200'.  
+
+*--stats* para imprimir en consola el número total de links y el número total de links únicos o no repetidos.  
+
+*--validate --stats* que combina el retorno de la opción --validate junto con el de --stats imprimiendo además el número total de links rotos. 
+
+### Ejemplos  
+
+**Resultado esperado**
 
 ## 5. Tutoriales 
 
