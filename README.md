@@ -62,8 +62,23 @@ Jest
 *--validate --stats* que combina el retorno de la opción --validate junto con el de --stats imprimiendo además el número total de links rotos. 
 
 ### Ejemplos  
+Después de haber instalado la paquetería, en el package.json file se verá de esta manera:
+![alt text](/readMeAssets/npmipackagejson.png)
 
-**Resultado esperado**
+**Creación de archivo de prueba**
+Se crea un archivo con extensión md de prueba en cuyo contenido vienen links para validar a forma de ejemplo. 
+![alt text](/readMeAssets/npmdocs.png)
+
+**Llamar la función mdLinks importada por npm**
+Con la función importada se crea otra función que usará mdLinks con los parámetros necesarios: el path(file o folder) y la opcion { validate:false } en este caso. 
+![alt text](/readMeAssets/npmvalidatefalse.png)
+
+Lo que se verá como resultado será una promesa con el href, file y text correspondientes a cada link:
+![alt text](/readMeAssets/npmdocsfalse.png)
+
+Con la opción { validate:true } se agregará a la promesa la petición a http con el statusCode y el statusMessage. Será statusCode:200 y statusMessage 'ok' si el link es correcto; statusCode:'NA' y statusMessage 'fail' si el link presenta algún fallo o error. 
+![alt text](/readMeAssets/npmdocstrue.png)  
+ 
 
 ## 5. Tutoriales 
 
